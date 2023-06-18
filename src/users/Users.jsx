@@ -12,28 +12,38 @@ const Users = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 w-full min-h-screen">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-4 px-6">
           <h1 className="text-2xl font-bold text-gray-800">Users Page</h1>
         </div>
       </header>
       <main className="max-w-7xl mx-auto py-6 px-6">
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white  rounded-lg shadow-lg p-6">
           <h2 className="text-lg font-semibold text-gray-800">Users List</h2>
-          {users.map(user => (
-            <div key={user.id} className="mt-4 bg-gray-200 p-4 rounded-lg flex justify-between items-center">
-              <div>
-                <h3 className="text-md font-semibold text-gray-800">{user.name}</h3>
-                <p className="text-gray-600">Age: {user.age}</p>
-                <p className="text-gray-600">Occupation: {user.occupation}</p>
-              </div>
-              <div className="flex items-center">
-                <button className="text-blue-500 font-semibold mr-2">Edit</button>
-                <button className="text-red-500 font-semibold" onClick={() => deleteUser(user.id)}>Delete</button>
-              </div>
-            </div>
-          ))}
+          <table className="table-auto w-full">
+            <thead>
+              <tr>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Age</th>
+                <th className="px-4 py-2">Occupation</th>
+                <th className="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id} className="bg-gray-200">
+                  <td className="border px-4 py-2">{user.name}</td>
+                  <td className="border px-4 py-2">{user.age}</td>
+                  <td className="border px-4 py-2">{user.occupation}</td>
+                  <td className="border px-4 py-2">
+                    <button className="text-blue-500 font-semibold mr-2">Edit</button>
+                    <button className="text-red-500 font-semibold" onClick={() => deleteUser(user.id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </main>
     </div>
