@@ -9,11 +9,11 @@ import Register from "../../Authentication/Register";
 import ContactUs from "../../pages/ContactUs/ContactUs";
 import Policy from "../../pages/Policy/Policy";
 import DashboardHome from "../../Dashboard/DashboardHome";
-import Users from "../../users/Users";
-import Profile from "../Profile/Profile";
-import BuyPixelsPage from "../../pages/BuyPixel/BuyPixels";
-import MyPixels from "../MyPixels/MyPixels";
-import PaymentStatus from "../PaymentStatus/PaymentStatus";
+import Users from "../../AdminPages/users/Users";
+import Profile from "../../AdminPages/Profile/Profile";
+import BuyPixelsPage from "../../AdminPages/BuyPixel/BuyPixels";
+import MyPixels from "../../AdminPages/MyPixels/MyPixels";
+import PaymentStatus from "../../AdminPages/PaymentStatus/PaymentStatus";
   export const router = createBrowserRouter([
     {
       path: "/",
