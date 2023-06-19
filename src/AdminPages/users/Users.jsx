@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Users = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'John Doe', age: 30, occupation: 'Software Engineer' },
-    { id: 2, name: 'Jane Smith', age: 28, occupation: 'Data Analyst' },
-    { id: 3, name: 'Michael Johnson', age: 35, occupation: 'Product Manager' },
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(()=>{
+    fetch('/users/user.json')
+    .then(res => res.json())
+    .then(data =>setUsers(data))
+  },[])
 
   const deleteUser = (id) => {
     setUsers(users.filter(user => user.id !== id));
@@ -27,6 +29,7 @@ const Users = () => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Age</th>
                 <th className="px-4 py-2">Occupation</th>
+                <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Actions</th>
               </tr>
             </thead>
@@ -36,6 +39,7 @@ const Users = () => {
                   <td className="border px-4 py-2">{user.name}</td>
                   <td className="border px-4 py-2">{user.age}</td>
                   <td className="border px-4 py-2">{user.occupation}</td>
+                  <td className="border px-4 py-2">{user.status}</td>
                   <td className="border px-4 py-2">
                     <button className="text-blue-500 font-semibold mr-2">Edit</button>
                     <button className="text-red-500 font-semibold" onClick={() => deleteUser(user.id)}>Delete</button>
