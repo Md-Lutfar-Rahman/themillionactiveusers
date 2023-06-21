@@ -14,6 +14,9 @@ import Profile from "../../AdminPages/Profile/Profile";
 import BuyPixelsPage from "../../AdminPages/BuyPixel/BuyPixels";
 import MyPixels from "../../AdminPages/MyPixels/MyPixels";
 import PaymentStatus from "../../AdminPages/PaymentStatus/PaymentStatus";
+import PaindingUsers from "../../AdminPages/users/PaindingUsers";
+import AddPixelInfo from "../../AdminPages/AddPixelInfo/AddPixelInfo";
+
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -47,7 +50,11 @@ import PaymentStatus from "../../AdminPages/PaymentStatus/PaymentStatus";
     },
     {
         path:'/dashboard',
-        element:<Dashboard></Dashboard>,
+        element: 
+            
+              <Dashboard></Dashboard>
+            
+          ,
         children:[
             {
                 path:'/dashboard',
@@ -75,9 +82,13 @@ import PaymentStatus from "../../AdminPages/PaymentStatus/PaymentStatus";
             },
             {
                 path:'/dashboard/paindingusers',
-                element:"ssss"
-            }
-
+                element:<PaindingUsers></PaindingUsers>
+            },
+            {
+                path:'/dashboard/addPixelsInfo',
+                element:<AddPixelInfo></AddPixelInfo>
+            },
+            
             
         ]
     },
