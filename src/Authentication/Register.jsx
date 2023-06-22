@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import app from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import UseFirebase from "../firebase/UseFirebase";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,30 +11,54 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [photo, setPhoto] = useState(null);
-
-  const handleRegister = () => {
-    const auth = getAuth(app);
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Handle successful registration
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        // Handle registration error
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
-
+  const { createUser, authUser } = UseFirebase();
+  console.log(authUser)
+  if (authUser.email) {
+    navigate('/')
+  }
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     setPhoto(file);
   };
-
+  const handleRegister = () => {
+    createUser("abdusssls@gmail.com", "2121211212", "abdul");
+    if (authUser) {
+      navigate("/dashboard");
+    }
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     // Handle successful registration
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //     if (user) {
+    //       const requestOptions = {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({
+    //           name,
+    //           password,
+    //           email,
+    //           phone,
+    //           gender,
+    //           address,
+    //           photo,
+    //         }),
+    //       };
+    //       fetch("http://localhost:3000/users/register", requestOptions)
+    //         .then((response) => response.json())
+    //         .then((data) => this.setState({ postId: data.id }));
+    //     } else {
+    //       console.log("Error");
+    //     }
+    //     navigate("/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     // Handle registration error
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     console.log(errorCode, errorMessage);
+    //   });
+  };
   return (
     <div className="max-w-md mx-auto bg-white p-8 rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Register</h2>
@@ -66,7 +89,7 @@ const Register = () => {
           className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
         />
       </div>
-      
+
       <div className="mb-4">
         <input
           type="email"
@@ -114,11 +137,7 @@ const Register = () => {
         >
           Upload Photo
         </label>
-        {photo && (
-          <p className="mt-2 mx-auto">
-            Selected photo: {photo.name}
-          </p>
-        )}
+        {photo && <p className="mt-2 mx-auto">Selected photo: {photo.name}</p>}
       </div>
       <div className="flex justify-end">
         <button

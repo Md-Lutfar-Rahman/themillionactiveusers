@@ -1,17 +1,19 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
 
-  // Function to set the current user
-  const setCurrentUserHandler = (user) => {
-    setCurrentUser(user);
-  };
+    const [users , setUsers] = useState([]);
+    useEffect(()=>{
+      fetch('http://localhost:3000/users')
+      .then(res =>res.json())
+      .then(data=>setUsers(data))
+    },[])
+console.log(users)
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser: setCurrentUserHandler }}>
+    <UserContext.Provider value={users}>
       {children}
     </UserContext.Provider>
   );

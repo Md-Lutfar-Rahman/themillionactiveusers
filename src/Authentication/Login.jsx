@@ -1,14 +1,22 @@
 import { useState, useRef } from "react";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import app from "../firebase/firebase";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider, 
+  sendPasswordResetEmail,
+} from "firebase/auth"; 
 import { useNavigate } from "react-router-dom";
+import UseFirebase from "../firebase/UseFirebase";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const emailRef = useRef(null); // Create a ref for email input
-
+  const { loginUser, authUser } = UseFirebase();
+  if (authUser) {
+    navigate("/");
+  }
   const handleGoogleLogin = () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -28,22 +36,10 @@ const Login = () => {
       });
   };
 
-  const handleEmailPasswordLogin = () => {
-    const auth = getAuth(app);
+  const handleEmailPasswordLogin = () => { 
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Handle successful login
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        // Handle login error
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    loginUser(email, password);
+    navigate("/dashboard");
   };
 
   const handleResetPassword = () => {

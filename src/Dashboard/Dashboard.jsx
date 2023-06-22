@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-
+import getUser from "../Global/getUser";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
-
+  const [users, setUsers] = useState({});
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-
+  // get user data from global
+  useEffect(() => {
+    getUser().then((data) => setUsers(data));
+  }, []);
+  console.log(users);
   return (
     <div className="flex">
       <div className="w-64 bg-gray-200">
